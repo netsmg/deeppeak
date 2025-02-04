@@ -1,7 +1,7 @@
 {
   "site": {
-    "title": "Glasto",
-    "base_url": "https://glasto-astro.vercel.app",
+    "title": "DeepPeak",
+    "base_url": "https://deeppeak.vercel.app",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
@@ -9,7 +9,7 @@
     "logo_light": "/images/logo-light.svg",
     "logo_width": "118",
     "logo_height": "",
-    "logo_text": "Glasto"
+    "logo_text": "DeepPeak"
   },
 
   "settings": {
@@ -22,12 +22,12 @@
     "announcement": {
       "enable": true,
       "persist_announcement_closed": false,
-      "content": "Get 17+ Astro themes in a single bundle! [Explore Now](https://themefisher.com/bundles/astro-bundle)"
+      "content": "Welcome to DeepPeak[Explore Now](https://deeppeak.vercel.app/portal)"
     },
     "demo_contact_form_action": "#",
     "contact_form_action": "#",
-    "footer_description": "Streamline operations with cutting-edge solutions that future-proof your business.",
-    "copyright": "Copyright {year} By Your Company. Designed & Developed by [Themefisher](https://themefisher.com)"
+    "footer_description": "DeepPeak",
+    "copyright": "Copyright {year} DeepPeak."
   },
 
   "subscription": {
@@ -37,19 +37,19 @@
 
   "navigation_button": {
     "enable": true,
-    "label": "Get This Template",
-    "link": "https://themefisher.com/products/glasto-astro"
+    "label": "Login",
+    "link": "https://deeppeak.vercel.app/login"
   },
 
   "disqus": {
     "enable": true,
-    "shortname": "themefisher-template",
+    "shortname": "webuinet",
     "settings": {}
   },
 
   "metadata": {
-    "meta_author": "Themefisher",
+    "meta_author": "NetSMG",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Multi layout Saas & Startup Template"
+    "meta_description": "NLP ai with DeepPeak"
   }
 }
