@@ -22,7 +22,7 @@
     "announcement": {
       "enable": true,
       "persist_announcement_closed": false,
-      "content": "Welcome to DeepPeak[Explore Now](https://deeppeak.vercel.app/portal)"
+      "content": "Welcome to DeepPeak. [Explore Now](https://deeppeak.vercel.app/portal)"
     },
     "demo_contact_form_action": "#",
     "contact_form_action": "#",
