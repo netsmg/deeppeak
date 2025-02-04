@@ -1,0 +1,19 @@
+---
+import Base from "@/layouts/Base.astro";
+import BlogSection from "@/partials/BlogSection.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import { getEntry } from "astro:content";
+
+const BLOG_FOLDER = "blog";
+
+const postIndex = await getEntry(BLOG_FOLDER, "-index");
+---
+
+<Base
+  title={postIndex.data.title}
+  meta_title={postIndex.data.meta_title}
+  image={postIndex.data.image}
+  description={postIndex.data.description}>
+  <BlogSection content={postIndex.data.hero} isBlogPage={true} />
+  <CallToAction />
+</Base>

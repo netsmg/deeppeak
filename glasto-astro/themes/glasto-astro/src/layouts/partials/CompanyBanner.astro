@@ -1,0 +1,130 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { Button } from "@/types";
+import { getEntry } from "astro:content";
+
+interface company {
+  image: string;
+  title: string;
+  description: string;
+  bg_image: string;
+  button: Button;
+  about: {
+    enable: boolean;
+    title: string;
+    description: string;
+  };
+  stats: { label: string; value: string }[];
+}
+
+const { title, description, image, bg_image, button, about, stats }: company = (
+  await getEntry("sections", "company-banner")
+).data;
+---
+
+{
+  (
+    <section class="section relative">
+      <div class="container">
+        <div
+          aria-hidden="true"
+          class="blur-[100px] h-[1004px] left-1/2 -translate-x-1/2 opacity-90 absolute w-full z-0 top-[20%]">
+          <ImageMod
+            class="w-full object-cover object-center h-full"
+            src={bg_image}
+            alt="gradient background"
+          />
+        </div>
+        <div class="row">
+          <div
+            class="mx-auto text-center lg:col-8 xl:col-10"
+            data-aos="fade-up-sm">
+            {title && (
+              <h1
+                class="mb-6 has-highlight-text"
+                set:html={markdownify(title)}
+              />
+            )}
+            {description && (
+              <p class="text-lg/inherit" set:html={markdownify(description)} />
+            )}
+            {button && (
+              <a
+                class="btn btn-lg btn-primary hover-dark mt-6"
+                href={button.link}
+                target="_blank"
+                rel="noopener">
+                {button.label}
+              </a>
+            )}
+          </div>
+          {image && (
+            <div class="text-center lg:col-12 pt-24" data-aos="fade-up-sm">
+              <ImageMod
+                class="w-full rounded-lg"
+                src={image}
+                alt={`image related to ${title}`}
+              />
+            </div>
+          )}
+          {about && about.enable && (
+            <div class="lg:col-12 pt-24" data-aos="fade-up-sm">
+              <div class="row gy-4">
+                {about.title && (
+                  <div class="lg:col-6">
+                    <h2 set:html={markdownify(about.title)} />
+                  </div>
+                )}
+                {about.description && (
+                  <div class="lg:col-6 lg:pl-20">
+                    <div
+                      class="content"
+                      set:html={markdownify(about.description, true)}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+          {stats && (
+            <div
+              class="lg:col-12 pt-24"
+              data-aos="fade-up-sm"
+              data-aos-delay="200">
+              <div class="row g-4 justify-center">
+                {stats?.map(
+                  (
+                    { value, label }: { value: string; label: string },
+                    index: number,
+                  ) => (
+                    <div
+                      class="md:col-6 lg:col-4"
+                      data-aos="fade-up-sm"
+                      data-aos-delay={(stats.length - index) * 100}>
+                      <div
+                        class={`rounded-md min-h-full py-9 px-12 ${index % 2 === 0 ? "bg-violet-200" : "bg-lime-100"}`}>
+                        {value && (
+                          <h3
+                            class="h2 lg:h1 mb-4"
+                            set:html={markdownify(value)}
+                          />
+                        )}
+                        {label && (
+                          <p
+                            class="mb-3 lg:text-xl font-medium text-dark"
+                            set:html={markdownify(label)}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  ),
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

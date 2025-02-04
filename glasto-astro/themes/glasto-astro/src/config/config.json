@@ -1,0 +1,55 @@
+{
+  "site": {
+    "title": "Glasto",
+    "base_url": "https://glasto-astro.vercel.app",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.svg",
+    "logo_light": "/images/logo-light.svg",
+    "logo_width": "118",
+    "logo_height": "",
+    "logo_text": "Glasto"
+  },
+
+  "settings": {
+    "pagination": 3,
+    "summary_length": 120,
+    "blog_folder": "blog"
+  },
+
+  "params": {
+    "announcement": {
+      "enable": true,
+      "persist_announcement_closed": false,
+      "content": "Get 17+ Astro themes in a single bundle! [Explore Now](https://themefisher.com/bundles/astro-bundle)"
+    },
+    "demo_contact_form_action": "#",
+    "contact_form_action": "#",
+    "footer_description": "Streamline operations with cutting-edge solutions that future-proof your business.",
+    "copyright": "Copyright {year} By Your Company. Designed & Developed by [Themefisher](https://themefisher.com)"
+  },
+
+  "subscription": {
+    "enable": true,
+    "form_action": "#"
+  },
+
+  "navigation_button": {
+    "enable": true,
+    "label": "Get This Template",
+    "link": "https://themefisher.com/products/glasto-astro"
+  },
+
+  "disqus": {
+    "enable": true,
+    "shortname": "themefisher-template",
+    "settings": {}
+  },
+
+  "metadata": {
+    "meta_author": "Themefisher",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Multi layout Saas & Startup Template"
+  }
+}

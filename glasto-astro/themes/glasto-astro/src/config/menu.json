@@ -1,0 +1,92 @@
+{
+  "main": [
+    {
+      "name": "All Pages",
+      "url": "",
+      "hasMegaMenu": true,
+      "children": [
+        {
+          "name": "",
+          "children": [
+            {
+              "name": "Home",
+              "url": "/",
+              "description": "Modern & Creative"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "children": [
+            { "name": "Company", "url": "/company" },
+            { "name": "Pricing", "url": "/pricing" },
+            { "name": "Integration", "url": "/integration" },
+            { "name": "Case Study", "url": "/case-studies" },
+            {
+              "name": "Case Study Details",
+              "url": "/case-studies/case-study-1"
+            },
+            { "name": "Contact", "url": "/contact" },
+            { "name": "Request a Demo", "url": "/demo" }
+          ]
+        },
+        {
+          "name": "",
+          "children": [
+            { "name": "Changelog", "url": "/changelog" },
+            { "name": "Blog", "url": "/blog" },
+            { "name": "Blog Details", "url": "/blog/post-1" },
+            { "name": "Reviews", "url": "/review" },
+            { "name": "Privacy", "url": "/privacy-policy" },
+            { "name": "Terms", "url": "/terms-conditions" },
+            { "name": "404", "url": "/404" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pricing",
+      "url": "/pricing"
+    },
+    {
+      "name": "Case Studies",
+      "url": "/case-studies"
+    },
+    {
+      "name": "Support",
+      "url": "/contact"
+    }
+  ],
+  "footer_quick_links": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Feature",
+      "url": "/feature"
+    },
+    {
+      "name": "Company",
+      "url": "/company"
+    },
+    {
+      "name": "Pricing",
+      "url": "/pricing"
+    }
+  ],
+  "footer_other_links": [
+    {
+      "name": "Blog",
+      "url": "/blog"
+    },
+    {
+      "name": "Blog Details",
+      "url": "/blog/post-1"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact"
+    }
+  ]
+}

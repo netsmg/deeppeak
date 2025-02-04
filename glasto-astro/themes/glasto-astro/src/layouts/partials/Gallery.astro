@@ -1,0 +1,90 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+
+interface company {
+  title: string;
+  images: string[];
+}
+
+const { title, images }: company = (await getEntry("sections", "gallery")).data;
+---
+
+{
+  (
+    <section class="section relative pt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12" data-aos="fade-up-sm">
+            <div class="flex gap-5 flex-wrap items-center justify-between">
+              {title && <h2 set:html={markdownify(title)} />}
+              <div class="flex gap-4">
+                <button
+                  id="gallery-slider-arrow-left"
+                  class="w-14 h-14 hover:bg-green-100 duration-300 transition-colors flex justify-center items-center bg-green-50 border border-border/20 rounded-full text-green-500">
+                  <DynamicIcon icon={"FaChevronLeft"} />
+                </button>
+                <button
+                  id="gallery-slider-arrow-right"
+                  class="w-14 h-14 hover:bg-green-100 duration-300 transition-colors flex justify-center items-center bg-green-50 border border-border/20 rounded-full text-green-500">
+                  <DynamicIcon icon={"FaChevronRight"} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lg:px-10 pt-16">
+        <div class="swiper testimonial-slider">
+          <div class="swiper-wrapper">
+            {images.map((item) => (
+              <div class="swiper-slide">
+                <ImageMod
+                  class="lg:h-[32rem] md:h-[22rem] object-cover rounded-md"
+                  src={item}
+                  alt={`photo of ${title}`}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import { Autoplay, Navigation } from "swiper/modules";
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".testimonial-slider", {
+      modules: [Navigation, Autoplay],
+      spaceBetween: 24,
+      loop: true,
+      speed: 800,
+      autoplay: {
+        delay: 1400,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".testimonial-slider-pagination",
+        type: "bullets",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: "#gallery-slider-arrow-right",
+        prevEl: "#gallery-slider-arrow-left",
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+        },
+      },
+    });
+  });
+</script>

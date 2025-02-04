@@ -1,0 +1,47 @@
+---
+import config from "@/config/config.json";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+const { params } = config;
+
+const persistAnnouncementClosed = config.params.announcement.persist_announcement_closed;
+---
+
+{
+  params.announcement && params.announcement.enable && (
+    <div class="p-2 pb-0 md:text-center relative" id="announcement">
+      <div
+        class="bg-theme-dark py-2 px-4 text-white text-sm [&>a]:underline rounded-sm pe-10 md:rounded-full"
+        set:html={markdownify(params.announcement.content)}
+      />
+      <button
+        id="close-announcement"
+        aria-label="Close Announcement"
+        class="absolute top-2 right-2 h-9 flex justify-center items-center w-10">
+        <DynamicIcon icon="IoCloseOutline" className="text-white w-6 h-6" />
+      </button>
+    </div>
+  )
+}
+
+<script is:inline define:vars={{ persistAnnouncementClosed }}>
+  document.addEventListener("astro:page-load", function () {
+    if (persistAnnouncementClosed) {
+      sessionStorage.setItem("announcementClosed", "true");
+    } else {
+      sessionStorage.removeItem("announcementClosed");
+    }
+
+    const announcement = document.getElementById("announcement");
+    const closeAnnouncement = document.getElementById("close-announcement");
+
+    if (closeAnnouncement) {
+      closeAnnouncement.addEventListener("click", () => {
+        announcement && announcement.remove();
+
+        // set announcementClosed in sessionStorage
+        persistAnnouncementClosed && sessionStorage.setItem("announcementClosed", "true");
+      });
+    }
+  });
+</script>

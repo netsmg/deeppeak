@@ -1,0 +1,53 @@
+---
+import ImageMod from "./ImageMod.astro";
+import { plainify } from "@/lib/utils/textConverter";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+const {
+  content: { data, slug, body },
+} = Astro.props;
+
+const { title, image } = data;
+---
+
+<div
+  class="bg-theme-light rounded-lg flex sm:flex-row flex-col gap-6 p-5 group">
+  {
+    image && (
+      <div class="rounded-lg w-full max-sm:h-72 sm:w-96 min-h-full overflow-hidden">
+        <ImageMod
+          class={`object-cover h-full group-hover:scale-110 transition duration-500`}
+          src={image}
+          alt={title}
+        />
+      </div>
+    )
+  }
+  <div class="flex flex-col justify-center">
+    {
+      title && (
+        <h3 class="h6 mb-4">
+          <a href={`/case-studies/${slug}`}>{title}</a>
+        </h3>
+      )
+    }
+    {
+      body && (
+        <p class="text-base-sm/snug" set:html={plainify(body?.slice(0, 80))} />
+      )
+    }
+    {
+      slug && (
+        <a
+          href={`/case-studies/${slug}`}
+          class="btn btn-text-primary mt-10 group/link hover:opacity-80">
+          View Case Study
+          <DynamicIcon
+            className="inline-block ml-1 group-hover/link:ml-2 transition-all duration-300"
+            icon="IoArrowForwardSharp"
+          />
+        </a>
+      )
+    }
+  </div>
+</div>

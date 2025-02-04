@@ -1,0 +1,26 @@
+---
+import Base from "@/layouts/Base.astro";
+import Clients from "@/partials/Clients.astro";
+import Features from "@/partials/Features.astro";
+import MediaAdvantages from "@/partials/MediaAdvantages.astro";
+import HomeBanner from "@/partials/HomeBanner.astro";
+import Testimonial from "@/partials/Testimonial.astro";
+import BlogSection from "@/partials/BlogSection.astro";
+import Faq from "@/partials/Faq.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import { getEntry } from "astro:content";
+
+const home = await getEntry("homepage", "-index");
+const { title, description, meta_title, image } = home.data;
+---
+
+<Base {...{ title, description, meta_title, image }}>
+  <HomeBanner />
+  <Clients />
+  <Features />
+  <MediaAdvantages />
+  <Testimonial visibleTestimonial={3} />
+  <BlogSection visiblePosts={3} />
+  <Faq />
+  <CallToAction />
+</Base>

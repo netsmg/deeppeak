@@ -1,0 +1,39 @@
+---
+import config from "@/config/config.json";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import BlogSection from "@/partials/BlogSection.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import { getEntry } from "astro:content";
+
+const BLOG_FOLDER = "blog";
+
+const { slug } = Astro.params;
+const postIndex = await getEntry(BLOG_FOLDER, "-index");
+
+
+export async function getStaticPaths() {
+  const BLOG_FOLDER = "blog";
+  const posts = await getSinglePage(BLOG_FOLDER);
+  const totalPages = Math.ceil(posts.length / config.settings.pagination);
+  const paths = [];
+
+  for (let i = 1; i < totalPages; i++) {
+    paths.push({
+      params: {
+        slug: (i + 1).toString(),
+      },
+    });
+  }
+  return paths;
+}
+---
+
+<Base
+  title={postIndex.data.title}
+  meta_title={postIndex.data.meta_title}
+  image={postIndex.data.image}
+  description={postIndex.data.description}>
+  <BlogSection slug={slug} content={postIndex.data.hero} isBlogPage={true} />
+  <CallToAction />
+</Base>

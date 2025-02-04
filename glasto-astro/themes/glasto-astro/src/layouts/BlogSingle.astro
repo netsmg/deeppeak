@@ -1,0 +1,47 @@
+---
+import Disqus from "@/helpers/Disqus";
+import dateFormat from "@/lib/utils/dateFormat";
+import { markdownify } from "@/lib/utils/textConverter";
+import ImageMod from "./components/ImageMod.astro";
+
+const { post } = Astro.props;
+
+const { Content } = await post.render();
+const { title, date, image } = post.data;
+---
+
+<section class="section pb-0">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="col-8" data-aos="fade-up-sm" data-aos-delay="200">
+        {
+          image && (
+            <div class="mb-10">
+              <ImageMod
+                src={image}
+                height={500}
+                width={1200}
+                alt={title}
+                class="h-auto w-full rounded-lg object-cover md:h-[320px]"
+              />
+            </div>
+          )
+        }
+      </div>
+      <div class="lg:col-8" data-aos="fade-up-sm">
+        {
+          date && (
+            <p class="mb-4" set:html={dateFormat(date, "MMMM dd, yyyy")} />
+          )
+        }
+        {title && <h1 set:html={markdownify(title)} class="h2" />}
+      </div>
+      <article class="lg:col-8 pt-12" data-aos="fade-up-sm">
+        <div class="content">
+          <Content />
+        </div>
+        <Disqus className="mt-16" client:load />
+      </article>
+    </div>
+  </div>
+</section>

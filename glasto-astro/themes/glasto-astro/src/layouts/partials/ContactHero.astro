@@ -1,0 +1,148 @@
+---
+import config from "@/config/config.json";
+import ImageMod from "@/components/ImageMod.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+
+interface Hero {
+  title: string;
+  description: string;
+  list: {
+    icon: string;
+    title: string;
+    description: string;
+  }[];
+}
+
+const { contact_form_action }: { contact_form_action: string } = config.params;
+const { hero }: { hero: Hero } = (await getEntry("contact", "-index")).data;
+---
+
+{
+  (
+    <section class="section">
+      <div class="container">
+        <div class="row justify-center">
+          <div
+            class="lg:col-8 xl:col-5 text-center pb-16 lg:pb-20"
+            data-aos="fade-up-sm">
+            {hero.title && (
+              <h2 class="md:h1 mb-6" set:html={markdownify(hero.title)} />
+            )}
+            {hero.description && (
+              <p
+                class="text-lg/inherit"
+                set:html={markdownify(hero.description)}
+              />
+            )}
+          </div>
+          <div class="col-10" data-aos="fade-up-sm" data-aos-delay="200">
+            <div class="row gy-5 justify-between">
+              <div class="lg:col-5 divide-y space-y-4">
+                {hero.list?.map((item) => (
+                  <div class="flex gap-4 pt-5 first:pt-0">
+                    <div class="mt-1">
+                      <div class="w-6 h-6">
+                        <ImageMod
+                          class="w-full h-full object-cover"
+                          src={item.icon}
+                          alt="icon"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <h3 class="h6 mb-3" set:html={markdownify(item.title)} />
+                      <div
+                        class="content"
+                        set:html={markdownify(item.description, true)}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div class="relative lg:col-6">
+                <div>
+                  <form
+                    class="row g-4"
+                    action={contact_form_action}
+                    method="post">
+                    <div class="lg:col-6">
+                      <label for="name" class="form-label">
+                        First Name <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        class="form-input"
+                        placeholder="Your First Name"
+                        required
+                        type="text"
+                      />
+                    </div>
+                    <div class="lg:col-6">
+                      <label for="name" class="form-label">
+                        Last Name <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        class="form-input"
+                        placeholder="Your Last Name"
+                        required
+                        type="text"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="email" class="form-label">
+                        Email <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="email"
+                        name="email"
+                        class="form-input"
+                        placeholder="youremail@email.com"
+                        required
+                        type="email"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="comapny-name" class="form-label">
+                        Phone number <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="comapny-name"
+                        name="comapny-name"
+                        class="form-input"
+                        placeholder="+10 (000) 000-0000"
+                        required
+                        type="text"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="message" class="form-label">
+                        Write Message <span class="text-red-500">*</span>
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        class="form-input"
+                        placeholder="Write Your Message Here"
+                        required
+                        rows="2"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary w-full">
+                        Send Message
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

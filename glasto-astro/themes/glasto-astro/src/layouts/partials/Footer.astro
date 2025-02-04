@@ -1,0 +1,125 @@
+---
+import Logo from "@/components/Logo.astro";
+import config from "@/config/config.json";
+import menu from "@/config/menu.json";
+import social from "@/config/social.json";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const { footer_quick_links, footer_other_links } = menu;
+
+// Function to replace {year} this from string to year
+function replaceYear(text: string) {
+  const year = new Date().getFullYear();
+
+  return text.replace("{year}", year.toString());
+}
+---
+
+<footer class="bg-theme-dark py-16 xl:py-24">
+  <div class="container" data-aos="fade-up-sm">
+    <div class="row gy-5 md:gy-6">
+      <div class="lg:col-6 lg:pe-8">
+        <div class="sm:max-w-sm">
+          <Logo src={config.site.logo_light} />
+          {
+            config.params.footer_description && (
+              <p
+                class="mt-6 mb-6 text-light/80"
+                set:html={markdownify(config.params.footer_description)}
+              />
+            )
+          }
+          {
+            config.subscription && config.subscription.enable && (
+              <form
+                action={config.subscription.form_action}
+                method="post"
+                class="flex justify-between gap-2.5 rounded-full w-fit">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  class="form-input rounded-full text-base-sm md:text-base placeholder:text-base-sm placeholder:md:text-base !border-transparent text-light/80 bg-white/5 py-2.5 px-4 placeholder:!opacity-100 placeholder:text-light/40"
+                  required
+                />
+                <button
+                  class="rounded-full bg-white px-5 py-1 font-bold transition hover:opacity-80 text-base-sm md:text-base"
+                  type="submit">
+                  Subscribe
+                </button>
+              </form>
+            )
+          }
+        </div>
+      </div>
+      <div class="lg:col-6">
+        <div
+          class="flex flex-col sm:flex-row gap-y-6 md:flex-nowrap flex-wrap justify-between">
+          <div>
+            <h3 class="mb-4 pt-2 text-sm font-normal text-white/50 md:mb-6">
+              Quick Links
+            </h3>
+            <ul class="flex flex-col gap-3">
+              {
+                footer_quick_links.map((item) => (
+                  <li>
+                    <a
+                      class="font-medium transition text-white hover:text-primary duration-500"
+                      href={item.url}>
+                      {item.name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div>
+            <h3 class="mb-4 pt-2 text-sm font-normal text-white/50 md:mb-6">
+              Other Links
+            </h3>
+            <ul class="flex flex-col gap-3">
+              {
+                footer_other_links.map((item) => (
+                  <li>
+                    <a
+                      class="font-medium transition text-white hover:text-primary duration-500"
+                      href={item.url}>
+                      {item.name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div>
+            <h3 class="mb-4 pt-2 text-sm font-normal text-white/50 md:mb-6">
+              Social Media
+            </h3>
+            <ul class="flex flex-col gap-3">
+              {
+                social.main.map((item) => (
+                  <li>
+                    <a
+                      class="font-medium transition text-white hover:text-primary duration-500 capitalize"
+                      href={item.link}
+                      target="_blank">
+                      {item.name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {
+      config.params.copyright && (
+        <div
+          class="text-center text-sm text-white mt-10 md:mt-20 pt-7 md:pt-14 border-t border-border/10 [&>a]:underline"
+          set:html={markdownify(replaceYear(config.params.copyright))}
+        />
+      )
+    }
+  </div>
+</footer>

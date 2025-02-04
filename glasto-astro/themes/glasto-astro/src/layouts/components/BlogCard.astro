@@ -1,0 +1,46 @@
+---
+import config from "@/config/config.json";
+import dateFormat from "@/lib/utils/dateFormat";
+import ImageMod from "./ImageMod.astro";
+
+const {
+  blog_folder,
+}: { summary_length: number; blog_folder: string } = config.settings;
+
+const {
+  content: { data, slug },
+} = Astro.props;
+
+const { title, image, date } = data;
+---
+
+<div class="bg-body">
+  {
+    image && (
+      <div class="rounded-lg relative h-[300px] mb-6 group flex overflow-hidden items-center justify-center">
+        <ImageMod
+          class={`object-cover h-full group-hover:scale-110 transition duration-700`}
+          src={image}
+          alt={title}
+        />
+        <a href={`/${blog_folder}/${slug}`} class="absolute w-full h-full" title={"Read more about " + title} />
+      </div>
+    )
+  }
+  {
+    date && (
+      <div class="mb-3 flex items-center gap-x-2">
+        <p class="inline-block font-medium text-primary">
+          {dateFormat(date, "iiii, MMM dd, yyyy")}
+        </p>
+      </div>
+    )
+  }
+  {
+    title && (
+      <h3 class="h6">
+        <a class="hover:text-primary duration-300 relative after:stretched-link" href={`/${blog_folder}/${slug}`}>{title}</a>
+      </h3>
+    )
+  }
+</div>

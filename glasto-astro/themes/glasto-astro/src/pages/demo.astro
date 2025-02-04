@@ -1,0 +1,18 @@
+---
+import Base from "@/layouts/Base.astro";
+import DemoHero from "@/partials/DemoHero.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import { getEntry } from "astro:content";
+
+const contact = await getEntry("demo", "-index");
+const { title, description, meta_title, image } = contact.data;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}>
+  <DemoHero />
+  <CallToAction />
+</Base>

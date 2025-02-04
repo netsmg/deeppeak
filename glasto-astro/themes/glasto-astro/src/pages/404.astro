@@ -1,0 +1,24 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import Base from "@/layouts/Base.astro";
+---
+
+<Base title="Page Not Found" notFoundPage={true}>
+  <section class="section text-center">
+    <div class="container" data-aos="fade-up-sm">
+      <div class="row justify-center">
+        <div class="sm:col-10 md:col-8 lg:col-7 text-center">
+          <ImageMod
+            class="mx-auto mb-10 block w-[600px]"
+            src="/images/404.png"
+            alt="404 image"
+          />
+          <p class="text-xl/inherit">
+            Opps! The page that you are looking for is not found
+          </p>
+          <a href="/" class="btn btn-primary mt-8">Back to home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

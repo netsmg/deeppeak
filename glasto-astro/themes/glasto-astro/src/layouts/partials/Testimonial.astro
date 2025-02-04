@@ -1,0 +1,185 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { Button } from "@/types";
+import { getEntry } from "astro:content";
+
+interface Testimonial {
+  title: string;
+  description: string;
+  button?: Button;
+  list?: {
+    name: string;
+    designation: string;
+    avatar: string;
+    content: string;
+  }[];
+}
+
+interface Props {
+  content?: Testimonial;
+  visibleTestimonial?: number;
+  className?: string;
+  hideCtaButton?: boolean;
+  largeHeading?: boolean;
+  lightColorScheme?: true;
+}
+
+const {
+  content,
+  visibleTestimonial,
+  largeHeading,
+  className,
+  hideCtaButton,
+  lightColorScheme,
+} = Astro.props;
+
+const contentEntry = (await getEntry("sections", "testimonial"))
+  .data as Testimonial;
+
+let { title, button, description, list } = contentEntry as Testimonial;
+
+// Override default blog data (Title, Description) with props if provided
+if (content) {
+  ({ title, description } = content);
+}
+
+if (visibleTestimonial) {
+  list = list?.slice(0, visibleTestimonial);
+}
+---
+
+{
+  (
+    <section
+      class={`section ${className || ""} ${!lightColorScheme ? "bg-theme-dark" : ""}`}>
+      <div class="container">
+        <div class="row">
+          <div
+            class="mx-auto text-center lg:col-10 xl:col-8"
+            data-aos="fade-up-sm">
+            {title &&
+              (largeHeading ? (
+                <h1
+                  class={`mb-6 md:text-h1 text-h2 ${!lightColorScheme ? "text-white" : "text-dark"}`}
+                  set:html={markdownify(title)}
+                />
+              ) : (
+                <h2
+                  class={`mb-6 text-h2 ${!lightColorScheme ? "text-white" : "text-dark"}`}
+                  set:html={markdownify(title)}
+                />
+              ))}
+            {description && (
+              <p
+                class={`text-lg/inherit ${!lightColorScheme ? "text-white" : "text-dark"}`}
+                set:html={markdownify(description)}
+              />
+            )}
+          </div>
+          <div class="col-12 pt-20" data-aos="fade-up-sm" data-aos-delay="200">
+            <div class="row g-4 justify-center">
+              {list?.map((item) => (
+                <div class="md:col-6 lg:col-4">
+                  <div
+                    class={
+                      "flex min-h-full flex-col justify-start gap-10 rounded-xl bg-white/5 p-6" +
+                      ` ${lightColorScheme && "border border-border/60"}`
+                    }>
+                    <div class="flex flex-col justify-start gap-6">
+                      <div class="flex justify-start items-center gap-x-2">
+                        <DynamicIcon
+                          icon="FaStar"
+                          className="text-yellow-400 text-xl"
+                        />
+                        <DynamicIcon
+                          icon="FaStar"
+                          className="text-yellow-400 text-xl"
+                        />
+                        <DynamicIcon
+                          icon="FaStar"
+                          className="text-yellow-400 text-xl"
+                        />
+                        <DynamicIcon
+                          icon="FaStar"
+                          className="text-yellow-400 text-xl"
+                        />
+                        <DynamicIcon
+                          icon="FaStar"
+                          className="text-yellow-400 text-xl"
+                        />
+                        <span
+                          class={
+                            "text-lg font-semibold" +
+                            ` ${!lightColorScheme ? "text-white" : "text-dark"}`
+                          }>
+                          4.5
+                        </span>
+                      </div>
+                      {item.content && (
+                        <div
+                          class={
+                            "content prose-strong:text-xl" +
+                            ` ${!lightColorScheme ? "prose-p:text-light" : "prose-p:text-dark"}`
+                          }
+                          set:html={markdownify(item.content, true)}
+                        />
+                      )}
+                    </div>
+                    <div class="flex gap-4 flex-row items-center">
+                      {item.avatar && (
+                        <div class="flex h-11 w-11 items-center overflow-hidden rounded-full">
+                          <ImageMod
+                            class="h-full w-full object-cover"
+                            src={item.avatar}
+                            alt={`avatar of the ${item.name}`}
+                          />
+                        </div>
+                      )}
+                      <div>
+                        {item.name && (
+                          <strong
+                            class={
+                              "mb-2 text-lg/inherit font-medium" +
+                              ` ${!lightColorScheme ? "text-white" : "text-dark"}`
+                            }
+                            set:html={markdownify(item.name)}
+                          />
+                        )}
+                        {item.designation && (
+                          <p
+                            class={
+                              "opacity-80 text-sm" +
+                              ` ${!lightColorScheme ? "text-light" : "text-dark"}`
+                            }
+                            set:html={markdownify(item.designation)}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {!hideCtaButton && button && button.enable && (
+              <div class="text-center mt-10 lg:mt-20">
+                <a
+                  class={
+                    "btn" +
+                    ` ${!lightColorScheme ? "btn-outline" : "btn-outline-dark"}`
+                  }
+                  href={button.link}
+                  target={button.link.startsWith("http") ? "_blank" : "_self"}
+                  set:html={markdownify(button.label)}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script></script>

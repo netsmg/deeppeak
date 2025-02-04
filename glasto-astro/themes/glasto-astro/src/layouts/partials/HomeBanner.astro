@@ -1,0 +1,124 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { Button } from "@/types";
+import { getEntry } from "astro:content";
+
+interface Banner {
+  subtitle: string;
+  title: string;
+  description: string;
+  bg_image: string;
+  animating_images: string[];
+  images: {
+    src: string;
+    alt: string;
+  }[];
+  buttons: Button[];
+}
+
+const {
+  title,
+  bg_image,
+  animating_images,
+  subtitle,
+  description,
+  buttons,
+  images,
+}: Banner = (await getEntry("sections", "home-banner")).data;
+---
+
+{
+  (
+    <section class="pb-0 pt-24 overflow-hidden relative">
+      <div
+        aria-hidden="true"
+        class="opacity-90 bottom-[-130px] blur-[120px] flex-none h-[962px] absolute w-full z-0">
+        <ImageMod
+          class="w-full object-cover object-center h-full"
+          src={bg_image}
+          alt="banner gradient background"
+          format="png"
+        />
+      </div>
+      <div class="container relative">
+        <div class="row justify-center">
+          <div class="mb-8 text-center md:col-9 lg:col-8 xl:col-8">
+            {subtitle && (
+              <div
+                class="mb-4 w-fit mx-auto px-3 py-1.5 rounded-full text-center border border-border/50"
+                data-aos="fade-up-sm">
+                <p set:html={markdownify(subtitle)} class="text-sm" />
+              </div>
+            )}
+            {title && (
+              <h1
+                set:html={markdownify(title)}
+                data-aos="fade-up-sm"
+                class="mb-7 text-h2 lg:text-h1"
+              />
+            )}
+            {description && (
+              <p
+                set:html={markdownify(description)}
+                data-aos="fade-up-sm"
+                class="mb-8 text-lg/inherit"
+              />
+            )}
+            {buttons && (
+              <ul class="flex flex-wrap justify-center gap-4">
+                {buttons.map(({ label, link }, index) => (
+                  <li data-aos="fade-up-sm" data-aos-delay={100 + index * 50}>
+                    <a
+                      class={`${index === 0 ? "btn-primary" : "btn-outline-dark"} btn `}
+                      href={link}
+                      target={link.startsWith("http") ? "_blank" : "_self"}
+                      rel="noopener">
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {/* Animation Images */}
+            {animating_images &&
+              animating_images.map((animating_images, index) => (
+                <div
+                  class={`${index === 0 ? "left-5 lg:top-8" : "right-5 lg:top-8"} absolute h-[300px] w-auto hidden lg:block`}
+                  data-aos="fade-in"
+                  data-aos-duration="400"
+                  data-aos-delay="200">
+                  <ImageMod
+                    class={`h-auto w-[calc(2vw_+_8rem)] object-contain drop-shadow-2xl pop-in-out ${index === 0 ? "pop-in-out" : "pop-in-out reverse-animation"}`}
+                    src={animating_images}
+                    alt="social achivements"
+                    loading="eager"
+                  />
+                </div>
+              ))}
+          </div>
+          {images && (
+            <div class="col-12 pt-20 lg:pt-28">
+              <div class="relative">
+                {images.map(({ src, alt }, index) => (
+                  <div
+                    class={`${index === 0 ? "-mb-10 md:mb-0 md:h-[335px] lg:h-[480px] lg:object-top" : index === 1 ? "absolute left-5 bottom-14 sm:bottom-16 md:bottom-5 xl:left-10 xl:top-1/2 xl:-translate-y-1/2" : index === 2 ? "absolute lg:right-16 right-0 -top-10 md:-top-16" : ""}`}>
+                    <ImageMod
+                      data-aos="zoom-in-up-sm"
+                      class={`${index === 0 ? "lg:w-[1054px] block mx-auto" : index === 1 ? "w-[40%] lg:w-[400px]" : index === 2 ? "w-[20%] block ml-auto mr-5 lg:w-[310px]" : ""} rounded-md md:rounded-xl shadow-[0px_4px_40px] shadow-theme-dark/15 overflow-hidden`}
+                      data-aos-offset={200}
+                      data-aos-delay={index * 200}
+                      src={src}
+                      alt={alt}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
