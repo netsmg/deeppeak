@@ -7,7 +7,7 @@
     "favicon": "/images/favicon.png",
     "logo": "/images/logo.svg",
     "logo_light": "/images/logo-light.svg",
-    "logo_width": "118",
+    "logo_width": "160",
     "logo_height": "",
     "logo_text": "DeepPeak"
   },
@@ -22,11 +22,11 @@
     "announcement": {
       "enable": true,
       "persist_announcement_closed": false,
-      "content": "Welcome to DeepPeak. [Explore Now](https://deeppeak.vercel.app/portal)"
+      "content": "Welcome to DeepPeak. [Explore Now](https://deeppeak.vercel.app/demo)"
     },
     "demo_contact_form_action": "#",
     "contact_form_action": "#",
-    "footer_description": "DeepPeak",
+    "footer_description": "DeepPeak an NLP.",
     "copyright": "Copyright {year} DeepPeak."
   },
 
