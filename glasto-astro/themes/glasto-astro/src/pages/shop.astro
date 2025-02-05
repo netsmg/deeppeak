@@ -1,0 +1,163 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const title = "Shop | DeepPeak";
+const meta_title = "Shop | DeepPeak";
+const description = "Reset your password securely and regain access to your account.";
+---
+
+<Base title={title} meta_title={meta_title} description={description}>
+  <main class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Shop Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-bold text-gray-800 dark:text-white">ModernShop</h1>
+          <div class="flex items-center space-x-4">
+            <button class="p-2 text-gray-600 dark:text-gray-300 hover:text-cyan-500">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+              </svg>
+              <span class="sr-only">Cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Product Filters -->
+    <aside class="container mx-auto px-6 py-6">
+      <div class="flex flex-wrap gap-4 items-center">
+        <div class="relative">
+          <select class="block appearance-none w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-cyan-500">
+            <option>All Categories</option>
+            <option>Electronics</option>
+            <option>Fashion</option>
+            <option>Home & Garden</option>
+          </select>
+        </div>
+        
+        <div class="relative">
+          <input type="number" placeholder="Max Price" 
+            class="w-32 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg focus:outline-none focus:border-cyan-500">
+        </div>
+      </div>
+    </aside>
+
+    <!-- Product Grid -->
+    <section class="container mx-auto px-6 py-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <!-- Product Card 1 -->
+        <article class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+          <div class="relative">
+            <img 
+              src="https://via.placeholder.com/400x300" 
+              alt="Product" 
+              class="w-full h-64 object-cover rounded-t-xl"
+            >
+            <span class="absolute top-4 right-4 bg-cyan-500 text-white px-3 py-1 rounded-full text-sm">New</span>
+          </div>
+          
+          <div class="p-6">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Wireless Headphones</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Premium noise-canceling wireless headphones</p>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-2xl font-bold text-cyan-500">$299</span>
+              <button class="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product Card 2 -->
+        <article class="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+          <div class="relative">
+            <img 
+              src="https://via.placeholder.com/400x300" 
+              alt="Product" 
+              class="w-full h-64 object-cover rounded-t-xl"
+            >
+          </div>
+          
+          <div class="p-6">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Smart Watch Pro</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Fitness tracking & heart rate monitor</p>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-2xl font-bold text-cyan-500">$199</span>
+              <button class="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Add more product cards as needed -->
+      </div>
+    </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="fixed right-0 top-0 h-full w-96 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 translate-x-full">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white">Shopping Cart</h2>
+          <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="space-y-4">
+          <!-- Cart Item 1 -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <img src="https://via.placeholder.com/80" alt="Item" class="w-20 h-20 object-cover rounded-lg">
+              <div>
+                <h3 class="font-medium text-gray-800 dark:text-white">Wireless Headphones</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">$299 x 1</p>
+              </div>
+            </div>
+            <button class="text-red-500 hover:text-red-600">Remove</button>
+          </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <div class="flex justify-between mb-4">
+            <span class="font-semibold text-gray-800 dark:text-white">Total:</span>
+            <span class="font-semibold text-cyan-500">$299</span>
+          </div>
+          <button class="w-full py-3 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors">
+            Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Quick View Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 hidden">
+      <!-- Modal content here -->
+    </div>
+  </main>
+
+</Base>
+
+<script>
+    // Basic cart toggle functionality
+    document.querySelectorAll('[data-cart-toggle]').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelector('.fixed.right-0').classList.toggle('translate-x-full');
+      });
+    });
+  </script>
+
+  <style>
+    /* Custom transitions */
+    .transition-shadow {
+      transition: box-shadow 0.3s ease;
+    }
+  </style>
