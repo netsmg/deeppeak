@@ -19,6 +19,7 @@
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
+    "@supabase/supabase-js": "^2.48.1",
     "aos": "^2.3.4",
     "astro": "^4.16.8",
     "astro-auto-import": "^0.4.4",
