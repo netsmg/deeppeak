@@ -1,9 +1,12 @@
 ---
-import Base from "@/layout/Base.astro";
-const title = "Sign in";
+import Base from "@/layouts/Base.astro";
+
+const title = "Login | DeepPeak";
+const meta_title = "Secure Login Page";
+const description = "Access your account securely with our modern login system."; 
 ---
 
-<Base title={title}>
+<Base title={title} meta_title={meta_title} description={description}>
   <main class="flex-1 flex flex-col gap-4 items-center p-4 justify-center">
     <section class="w-full max-w-md">
       <h1
