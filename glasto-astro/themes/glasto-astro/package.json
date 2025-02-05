@@ -1,8 +1,8 @@
 {
-  "name": "glasto-astro",
+  "name": "deepPeak",
   "version": "1.0.1",
   "description": "Multi layout Saas & Startup Template",
-  "author": "Themefisher",
+  "author": "NetSMG",
   "license": "UNLICENSED",
   "packageManager": "yarn@1.22.19",
   "scripts": {
