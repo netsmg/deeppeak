@@ -20,7 +20,7 @@
 
   "params": {
     "announcement": {
-      "enable": true,
+      "enable": false,
       "persist_announcement_closed": false,
       "content": "Welcome to DeepPeak. [Explore Now](https://deeppeak.vercel.app/demo)"
     },
