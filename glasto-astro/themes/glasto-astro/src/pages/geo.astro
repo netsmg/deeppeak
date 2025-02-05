@@ -3,8 +3,8 @@ import Base from "@/layouts/Base.astro";
 
 const title = "Geo | DeepPeak";
 const meta_title = "Secure Location Page";
-const description = "Access your Location securely with our modern geo system."; 
-const OPENCAGE_API_KEY = "1ff2ae6587f048eb834579cfb859936f";
+const description = "Access your Location securely with our modern geo system.";
+const OPENCAGE_API_KEY = "YOUR_REAL_API_KEY"; // Replace with a real API key
 ---
 
 <Base title={title} meta_title={meta_title} description={description}>
@@ -35,7 +35,7 @@ const OPENCAGE_API_KEY = "1ff2ae6587f048eb834579cfb859936f";
           </button>
         </form>
 
-        <div id="results" class="mt-6 space-y-4 hidden">
+        <div id="results" class="mt-6 space-y-4" style="display: none;">
           <div class="p-4 bg-gray-50 rounded-lg">
             <h2 class="text-lg font-semibold text-gray-800 mb-2">Location Details</h2>
             <div class="space-y-2">
@@ -48,7 +48,7 @@ const OPENCAGE_API_KEY = "1ff2ae6587f048eb834579cfb859936f";
           </div>
         </div>
 
-        <div id="error" class="mt-4 text-red-600 text-sm hidden"></div>
+        <div id="error" class="mt-4 text-red-600 text-sm" style="display: none;"></div>
       </div>
     </main>
   </div>
@@ -56,36 +56,46 @@ const OPENCAGE_API_KEY = "1ff2ae6587f048eb834579cfb859936f";
   <script>
     async function fetchLocation(event) {
       event.preventDefault();
-      const input = document.getElementById('locationInput').value;
+      const input = document.getElementById('locationInput').value.trim();
       const resultsDiv = document.getElementById('results');
       const errorDiv = document.getElementById('error');
+
+      if (!input) {
+        errorDiv.textContent = "Please enter a location.";
+        errorDiv.style.display = "block";
+        resultsDiv.style.display = "none";
+        return;
+      }
 
       try {
         const response = await fetch(
           `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(input)}&key=${OPENCAGE_API_KEY}`
         );
 
+        if (!response.ok) throw new Error("API request failed");
+
         const data = await response.json();
-        
+
         if (data.results.length > 0) {
           const { geometry, components } = data.results[0];
+
           document.getElementById('lat').textContent = geometry.lat;
           document.getElementById('lng').textContent = geometry.lng;
-          document.getElementById('city').textContent = components.city || 'N/A';
+          document.getElementById('city').textContent = components.city || components.town || 'N/A';
           document.getElementById('state').textContent = components.state || 'N/A';
           document.getElementById('country').textContent = components.country || 'N/A';
           
-          resultsDiv.classList.remove('hidden');
-          errorDiv.classList.add('hidden');
+          resultsDiv.style.display = "block";
+          errorDiv.style.display = "none";
         } else {
           errorDiv.textContent = 'Location not found';
-          errorDiv.classList.remove('hidden');
-          resultsDiv.classList.add('hidden');
+          errorDiv.style.display = "block";
+          resultsDiv.style.display = "none";
         }
       } catch (err) {
         errorDiv.textContent = 'Error fetching location data';
-        errorDiv.classList.remove('hidden');
-        resultsDiv.classList.add('hidden');
+        errorDiv.style.display = "block";
+        resultsDiv.style.display = "none";
       }
     }
   </script>
